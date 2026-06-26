@@ -22,7 +22,7 @@
 html,body{background:var(--bg0);}
 .reveal{font-family:'Pretendard',sans-serif;color:var(--ink);font-weight:400;
   font-feature-settings:'tnum';-webkit-font-smoothing:antialiased;}
-.reveal .slides{text-align:left;font-size:1.08em;}
+.reveal .slides{text-align:left;font-size:1.32em;}
 .reveal section{height:100%;}
 
 /* aurora bg */
@@ -64,14 +64,14 @@ html,body{background:var(--bg0);}
 
 /* layout — room for footer so nothing overlaps */
 .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
-  padding:7vh 7vw 11vh;}
-.row{display:flex;gap:1.8vw;}
+  padding:4.5vh 6.5vw 8vh;}
+.row{display:flex;gap:1.6vw;}
 .sec-no{font-size:.56em;font-weight:800;letter-spacing:.1em;color:var(--ink-faint);}
 .sec-rule{height:1px;flex:1;background:linear-gradient(90deg,var(--glass-bd),transparent);}
 
 /* card */
 .card{position:relative;background:var(--glass);border:1px solid var(--glass-bd);border-radius:20px;
-  padding:1.2em 1.3em;backdrop-filter:blur(14px);overflow:hidden;
+  padding:1.05em 1.15em;backdrop-filter:blur(14px);overflow:hidden;
   box-shadow:0 24px 60px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);}
 .card .ic{width:2em;height:2em;border-radius:13px;display:flex;align-items:center;justify-content:center;
   font-size:.7em;margin-bottom:.7em;color:#fff;background:linear-gradient(135deg,var(--pink),var(--violet));
@@ -128,7 +128,7 @@ html,body{background:var(--bg0);}
 
 /* tiles */
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;}
-.tile{background:var(--glass);border:1px solid var(--glass-bd);border-radius:16px;padding:1.2em 1.25em;backdrop-filter:blur(12px);}
+.tile{background:var(--glass);border:1px solid var(--glass-bd);border-radius:16px;padding:1.05em 1.1em;backdrop-filter:blur(12px);}
 .tile .ico{width:2em;height:2em;border-radius:12px;display:flex;align-items:center;justify-content:center;
   font-size:.58em;color:#fff;margin-bottom:.6em;background:linear-gradient(135deg,var(--pink),var(--violet));}
 .tile .k{font-size:.36em;font-weight:700;letter-spacing:.13em;color:var(--ink-faint);text-transform:uppercase;}
@@ -194,7 +194,7 @@ html,body{background:var(--bg0);}
   <div class="wrap">
     <div class="row fragment" style="align-items:center;margin-bottom:.55em"><span class="sec-no">01 / PROBLEM</span><span class="sec-rule"></span></div>
     <h1 class="fragment" style="font-size:1.7em">방영이 끝나는 순간, <span class="grad">가치가 증발한다.</span></h1>
-    <div class="row" style="margin-top:1.3em">
+    <div class="row" style="margin-top:1em">
       <div class="card glow fragment" style="flex:1">
         <span class="tag">수익의 구조적 한계 · 쇼홀 현상</span>
         <div class="stat grad-gold">-90<span class="u">% 가치 급락</span></div>
@@ -215,7 +215,7 @@ html,body{background:var(--bg0);}
   <div class="wrap">
     <div class="row fragment" style="align-items:center;margin-bottom:.55em"><span class="sec-no">02 / SOLUTION</span><span class="sec-rule"></span></div>
     <h1 class="fragment" style="font-size:1.7em">방송 IP 자체를 <span class="grad">AI로 학습</span>시킨다.</h1>
-    <div class="row" style="margin-top:1.2em">
+    <div class="row" style="margin-top:.9em">
       <div class="card fragment" style="flex:1">
         <span class="tag">방영 중</span><h4>에피소드 공백기 과몰입</h4>
         <p style="margin-top:.4em">회차 사이, 캐릭터가 떡밥을 던지며 시청자의 몰입을 끌어올린다.</p>
@@ -257,7 +257,7 @@ html,body{background:var(--bg0);}
   <div class="wrap">
     <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">04 / TECH SOLUTION</span><span class="sec-rule"></span></div>
     <h1 class="fragment" style="font-size:1.5em">IP를 학습하는 <span class="grad">AI 파이프라인 3종</span></h1>
-    <div class="flow fragment" style="margin-top:1.1em">
+    <div class="flow fragment" style="margin-top:.85em">
       <div class="step">
         <div class="card glow"><div class="ic"><i class="fa-solid fa-book-open"></i></div>
           <span class="tag">01 · LEARN</span><h4>Worldview RAG Core</h4>
@@ -276,7 +276,7 @@ html,body{background:var(--bg0);}
           <p>대화 데이터를 실시간 분석 — 인게이지먼트 지수·이탈 예측·감성 분석을 정량 리포트로.</p></div>
       </div>
     </div>
-    <div class="stack fragment">
+    <div class="stack fragment" style="margin-top:.85em">
       <span class="lbl">TECH STACK</span>
       <span class="stk"><i class="fa-solid fa-microchip l"></i><em>LLM</em> <b>GPT-5.4-mini</b></span>
       <span class="stk"><i class="fa-solid fa-fire f"></i><em>Backend</em> <b>Firebase</b></span>
@@ -291,7 +291,7 @@ html,body{background:var(--bg0);}
   <div class="wrap">
     <div class="row fragment" style="align-items:center;margin-bottom:.55em"><span class="sec-no">05 / BUSINESS MODEL</span><span class="sec-rule"></span></div>
     <h1 class="fragment" style="font-size:1.55em">구독으로 들어와, <span class="grad-gold">데이터로 남긴다.</span></h1>
-    <div class="tiles" style="margin-top:1.1em">
+    <div class="tiles" style="margin-top:.85em">
       <div class="tile fragment">
         <div class="ico"><i class="fa-solid fa-repeat"></i></div>
         <div class="k">STREAM 01</div><div class="v grad">SaaS 구독 · API</div>
@@ -308,7 +308,7 @@ html,body{background:var(--bg0);}
         <div class="d">공개 대본으로 PoC 증명 → 대시보드 무료 제공 → 효용 체감 후 유료 구독 자발적 전환.</div>
       </div>
     </div>
-    <p class="faint fragment" style="font-size:.42em;margin-top:1em"><strong>Platform-First.</strong> 진입장벽을 낮춰 먼저 생태계를 깔고, 데이터로 잠가 방송사가 떠날 수 없는 구조를 만든다.</p>
+    <p class="faint fragment" style="font-size:.42em;margin-top:.8em"><strong>Platform-First.</strong> 진입장벽을 낮춰 먼저 생태계를 깔고, 데이터로 잠가 방송사가 떠날 수 없는 구조를 만든다.</p>
   </div>
   <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Biz · 3 Revenue Streams</div></div>
 </section>
