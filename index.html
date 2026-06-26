@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IPVERSE — 방송 IP가 살아 숨 쉬는 곳</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --bg0:#0a0612; --bg1:#140a24;
+  --ink:#f4eefb; --ink-dim:#b9a9d4; --ink-faint:#7d6e9c;
+  --pink:#ff5d8f; --magenta:#ff3d7f; --purple:#9b5cff; --violet:#6a3df0;
+  --gold:#ffd479; --gold-deep:#f0a500; --cyan:#54e6ff;
+  --glass:rgba(255,255,255,0.05); --glass-bd:rgba(255,255,255,0.12);
+  --grad-hot:linear-gradient(120deg,#ff5d8f 0%,#9b5cff 55%,#54e6ff 110%);
+  --grad-gold:linear-gradient(120deg,#ffd479 0%,#ff8f5d 100%);
+}
+html,body{background:var(--bg0);}
+.reveal{font-family:'Pretendard',sans-serif;color:var(--ink);font-weight:400;
+  font-feature-settings:'tnum';-webkit-font-smoothing:antialiased;}
+.reveal .slides{text-align:left;}
+.reveal section{height:100%;}
+
+/* aurora bg */
+.bg-aurora{position:fixed;inset:0;z-index:0;overflow:hidden;
+  background:radial-gradient(120% 120% at 100% 0%, #1a0b2e 0%, var(--bg0) 55%);}
+.bg-aurora::before,.bg-aurora::after{content:"";position:absolute;border-radius:50%;
+  filter:blur(90px);opacity:.55;mix-blend-mode:screen;}
+.bg-aurora::before{width:55vw;height:55vw;left:-10vw;top:-12vw;
+  background:radial-gradient(circle,#ff3d7f,transparent 65%);animation:float1 18s ease-in-out infinite;}
+.bg-aurora::after{width:50vw;height:50vw;right:-12vw;bottom:-14vw;
+  background:radial-gradient(circle,#6a3df0,transparent 65%);animation:float2 22s ease-in-out infinite;}
+.bg-aurora i{position:absolute;width:38vw;height:38vw;border-radius:50%;filter:blur(100px);
+  opacity:.4;mix-blend-mode:screen;left:35vw;top:30vh;
+  background:radial-gradient(circle,#54e6ff,transparent 60%);animation:float3 26s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,6vh) scale(1.15)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-5vh) scale(1.2)}}
+@keyframes float3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-10vw,8vh) scale(1.1)}}
+.reveal:after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(120% 90% at 50% 40%,#000 30%,transparent 78%);}
+.reveal .slides{z-index:2;}
+
+/* type */
+.reveal h1,.reveal h2,.reveal h3,.reveal h4{font-family:'Pretendard';font-weight:800;color:var(--ink);
+  line-height:1.12;letter-spacing:-.02em;margin:0;text-transform:none;}
+.reveal p{line-height:1.5;margin:0;}
+.reveal strong{color:#fff;font-weight:700;}
+.grad{background:var(--grad-hot);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.grad-gold{background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.dim{color:var(--ink-dim);} .faint{color:var(--ink-faint);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:.5em;font-size:.4em;font-weight:700;
+  letter-spacing:.26em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:.8em;}
+.eyebrow .dot{width:.5em;height:.5em;border-radius:50%;background:var(--pink);box-shadow:0 0 14px var(--pink);}
+.kbadge{display:inline-flex;align-items:center;gap:.5em;padding:.42em .95em;border-radius:999px;
+  background:var(--glass);border:1px solid var(--glass-bd);font-size:.38em;font-weight:600;
+  color:var(--ink-dim);backdrop-filter:blur(8px);}
+
+/* layout — leave room for footer so nothing overlaps */
+.wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  padding:9vh 8vw 12vh;}
+.row{display:flex;gap:1.8vw;}
+.sec-no{font-size:.46em;font-weight:800;letter-spacing:.1em;color:var(--ink-faint);}
+.sec-rule{height:1px;flex:1;background:linear-gradient(90deg,var(--glass-bd),transparent);}
+
+/* card */
+.card{position:relative;background:var(--glass);border:1px solid var(--glass-bd);border-radius:20px;
+  padding:1.15em 1.25em;backdrop-filter:blur(14px);overflow:hidden;
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);}
+.card .ic{width:1.9em;height:1.9em;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:.6em;margin-bottom:.7em;color:#fff;background:linear-gradient(135deg,var(--pink),var(--violet));
+  box-shadow:0 10px 24px -8px rgba(155,92,255,.7);}
+.card h4{font-size:.56em;margin-bottom:.36em;}
+.card p{font-size:.4em;color:var(--ink-dim);line-height:1.48;}
+.card .tag{font-size:.32em;font-weight:700;letter-spacing:.16em;color:var(--pink);
+  text-transform:uppercase;margin-bottom:.6em;display:block;}
+.card.gold .ic{background:linear-gradient(135deg,var(--gold),var(--gold-deep));}
+.card.cyan .ic{background:linear-gradient(135deg,var(--cyan),var(--violet));}
+.card.glow::after{content:"";position:absolute;top:-40%;right:-30%;width:60%;height:120%;
+  background:radial-gradient(circle,rgba(255,93,143,.2),transparent 70%);}
+
+.stat{font-size:1.25em;font-weight:800;line-height:1;letter-spacing:-.03em;}
+.stat .u{font-size:.4em;font-weight:700;color:var(--ink-dim);margin-left:.15em;}
+
+.foot{position:absolute;bottom:4vh;left:8vw;right:8vw;display:flex;justify-content:space-between;
+  align-items:center;font-size:.3em;letter-spacing:.18em;color:var(--ink-faint);
+  text-transform:uppercase;font-weight:600;z-index:5;}
+.foot .b{display:flex;align-items:center;gap:.6em;}
+.logo-mini{font-weight:800;color:var(--ink-dim);letter-spacing:.06em;}
+.logo-mini .d{color:var(--pink);}
+
+.reveal .progress{height:3px;color:var(--pink);}
+.reveal .controls{color:var(--pink);}
+.reveal .slide-number{background:transparent;color:var(--ink-faint);font-size:13px;}
+
+/* cover */
+.cover-title{font-size:3.1em;font-weight:800;letter-spacing:-.04em;line-height:1.0;}
+.cover-sub{font-size:.56em;color:var(--ink-dim);font-weight:500;margin-top:.85em;max-width:24em;line-height:1.5;}
+.shine{background:linear-gradient(100deg,#fff 20%,#ff5d8f 38%,#9b5cff 52%,#54e6ff 66%,#fff 84%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 6s linear infinite;}
+@keyframes shine{to{background-position:200% center;}}
+.pill-row{display:flex;gap:.55em;flex-wrap:wrap;margin-top:1.8em;}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:1.05fr 1fr 1fr;border:1px solid var(--glass-bd);
+  border-radius:18px;overflow:hidden;background:var(--glass);backdrop-filter:blur(12px);}
+.cmp>div{padding:.85em 1.05em;border-bottom:1px solid rgba(255,255,255,.07);
+  border-right:1px solid rgba(255,255,255,.07);font-size:.4em;color:var(--ink-dim);display:flex;align-items:center;}
+.cmp .h{font-weight:800;color:#fff;font-size:.44em;background:rgba(255,255,255,.04);}
+.cmp .h.us{background:linear-gradient(120deg,rgba(255,93,143,.22),rgba(155,92,255,.22));color:#fff;}
+.cmp .us{color:#fff;font-weight:600;}
+.cmp .no::before{content:"\f00d";font-family:"Font Awesome 6 Free";font-weight:900;color:#ff6b8a;margin-right:.55em;}
+.cmp .yes::before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;
+  background:var(--grad-hot);-webkit-background-clip:text;background-clip:text;color:transparent;margin-right:.55em;}
+
+/* flow */
+.flow{display:flex;align-items:stretch;}
+.flow .step{flex:1;display:flex;}
+.flow .step .card{width:100%;}
+.flow .arr{display:flex;align-items:center;color:var(--ink-faint);font-size:.6em;padding:0 .35em;}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;}
+.tile{background:var(--glass);border:1px solid var(--glass-bd);border-radius:16px;padding:1.1em 1.15em;backdrop-filter:blur(12px);}
+.tile .ico{width:1.8em;height:1.8em;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:.48em;color:#fff;margin-bottom:.6em;background:linear-gradient(135deg,var(--pink),var(--violet));}
+.tile .k{font-size:.3em;font-weight:700;letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase;}
+.tile .v{font-size:.62em;font-weight:800;margin:.18em 0 .25em;}
+.tile .d{font-size:.34em;color:var(--ink-dim);line-height:1.45;}
+
+.quote{font-size:1.3em;font-weight:800;line-height:1.22;letter-spacing:-.02em;max-width:18em;}
+.cta{display:inline-flex;align-items:center;gap:.7em;padding:.8em 1.6em;border-radius:999px;
+  background:var(--grad-hot);color:#0a0612;font-weight:800;font-size:.46em;
+  box-shadow:0 18px 50px -16px rgba(255,93,143,.8);}
+
+/* auto-cascade entrance (fragments off; all play on slide enter) */
+.reveal .fragment{opacity:1 !important;visibility:visible !important;}
+@keyframes slideEnter{0%{opacity:0;transform:translateY(28px);filter:blur(8px);}100%{opacity:1;transform:none;filter:none;}}
+.reveal section.present .fragment{animation:slideEnter .6s cubic-bezier(.2,.8,.2,1) both;}
+.reveal section.present .fragment:nth-child(1){animation-delay:.05s}
+.reveal section.present .fragment:nth-child(2){animation-delay:.16s}
+.reveal section.present .fragment:nth-child(3){animation-delay:.27s}
+.reveal section.present .fragment:nth-child(4){animation-delay:.38s}
+.reveal section.present .fragment:nth-child(5){animation-delay:.49s}
+.reveal section.present .fragment:nth-child(6){animation-delay:.60s}
+.reveal section.present .row>.fragment:nth-child(2){animation-delay:.28s}
+.reveal section.present .row>.fragment:nth-child(3){animation-delay:.42s}
+.reveal section.present .flow>.step:nth-child(3){animation-delay:.30s}
+.reveal section.present .flow>.step:nth-child(5){animation-delay:.46s}
+.reveal section.present .tiles>.fragment:nth-child(2){animation-delay:.22s}
+.reveal section.present .tiles>.fragment:nth-child(3){animation-delay:.36s}
+</style>
+</head>
+<body>
+<div class="bg-aurora"><i></i></div>
+
+<div class="reveal"><div class="slides">
+
+<!-- ===== 1. COVER ===== -->
+<section data-transition="fade">
+  <div class="wrap">
+    <div class="eyebrow fragment"><span class="dot"></span>B2B WHITE-LABEL · INTERACTIVE IP ENGINE</div>
+    <h1 class="cover-title fragment">방송 IP가<br><span class="shine">살아 숨 쉬는 곳.</span></h1>
+    <p class="cover-sub fragment">종영과 함께 흩어지던 수백억 IP의 가치를,<br>
+       <strong>먼저 말 거는 능동형 AI 캐릭터</strong>로 다시 살려내는 화이트라벨 SaaS 엔진.</p>
+    <div class="pill-row fragment">
+      <span class="kbadge"><i class="fa-solid fa-brain"></i> Worldview RAG Core</span>
+      <span class="kbadge"><i class="fa-solid fa-wand-magic-sparkles"></i> 자동 콘텐츠 파이프라인</span>
+      <span class="kbadge"><i class="fa-solid fa-chart-line"></i> 팬덤 인텔리전스</span>
+    </div>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>방송 IP × 생성형 AI · 사업 제안</div></div>
+</section>
+
+<!-- ===== 2. PROBLEM ===== -->
+<section data-transition="slide">
+  <div class="wrap">
+    <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">01 / PROBLEM</span><span class="sec-rule"></span></div>
+    <h1 class="fragment" style="font-size:1.5em">방영이 끝나는 순간, <span class="grad">가치가 증발한다.</span></h1>
+    <div class="row" style="margin-top:1.3em">
+      <div class="card glow fragment" style="flex:1">
+        <span class="tag">수익의 구조적 한계 · 쇼홀 현상</span>
+        <div class="stat grad-gold">-90<span class="u">% 가치 급락</span></div>
+        <p style="margin-top:.7em">수익이 방영 기간의 광고·협찬에 편중 → 종영 순간 수백억 IP의 가치가 급락하고 시청자가 흩어진다.</p>
+      </div>
+      <div class="card fragment" style="flex:1">
+        <span class="tag">사후 관리 제작 병목</span>
+        <div class="stat" style="color:#fff;font-size:.95em">인력·비용 부재</div>
+        <p style="margin-top:.7em">팬덤 유지엔 세계관 확장 콘텐츠가 필요하지만, 마케팅 인력·비용 투입이 어려워 결국 <strong>하드디스크 속 아카이브</strong>로만 남는다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Problem · 진입장벽 & 제작 병목</div></div>
+</section>
+
+<!-- ===== 3. SOLUTION ===== -->
+<section data-transition="slide">
+  <div class="wrap">
+    <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">02 / SOLUTION</span><span class="sec-rule"></span></div>
+    <h1 class="fragment" style="font-size:1.5em">방송 IP 자체를 <span class="grad">AI로 학습</span>시킨다.</h1>
+    <div class="row" style="margin-top:1.2em">
+      <div class="card fragment" style="flex:1">
+        <span class="tag">방영 중</span><h4>에피소드 공백기 과몰입</h4>
+        <p style="margin-top:.4em">회차 사이, 캐릭터가 떡밥을 던지며 시청자의 몰입을 끌어올린다.</p>
+      </div>
+      <div class="card cyan fragment" style="flex:1">
+        <span class="tag" style="color:var(--cyan)">종영 후</span><h4>팬덤 인게이지먼트 유지</h4>
+        <p style="margin-top:.4em">방송이 끝나도 지속 상호작용으로 팬덤이 IP 안에 머무르게 한다.</p>
+      </div>
+    </div>
+    <div class="card glow fragment" style="margin-top:1em;background:linear-gradient(120deg,rgba(255,93,143,.12),rgba(155,92,255,.1))">
+      <div class="row" style="align-items:center;gap:1em">
+        <div class="ic" style="margin:0;flex:none"><i class="fa-solid fa-comment-dots"></i></div>
+        <div><h4 style="font-size:.5em">수동형 챗봇 → <span class="grad">능동형 캐릭터 인터랙션</span></h4>
+        <p style="margin-top:.25em">시청자가 질문을 고민하는 게 아니라, 캐릭터가 <strong>방송 회차·상황에 맞춰 먼저 말을 걸어</strong> 재방문율을 극대화한다.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Solution · IP 세계관 학습 발상</div></div>
+</section>
+
+<!-- ===== 4. BENCHMARK ===== -->
+<section data-transition="slide">
+  <div class="wrap">
+    <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">03 / BENCHMARKING</span><span class="sec-rule"></span></div>
+    <h1 class="fragment" style="font-size:1.35em">아무도 <span class="grad">방송사 IP</span>를 위해 짓지 않았다.</h1>
+    <div class="cmp fragment" style="margin-top:1.1em">
+      <div class="h"></div><div class="h">범용 챗봇 / 위버스·버블</div><div class="h us">IPVERSE</div>
+      <div>IP 톤앤매너·관계성</div><div class="no">미묘한 관계성 못 살려 몰입 깨짐</div><div class="us yes">대본·설정집 학습으로 완벽 재현</div>
+      <div>방송사 IP 입점</div><div class="no">엔터사 아티스트 중심, 입점 난항</div><div class="us yes">방송사 독립 입점 전제 설계</div>
+      <div>시청자 데이터 자산화</div><div class="no">방송사가 데이터 소유 못함</div><div class="us yes">팬덤 데이터 직접 확보·협찬 활용</div>
+    </div>
+    <p class="faint fragment" style="font-size:.34em;margin-top:.85em">* 화이트라벨 SaaS — 방송사가 자사 앱·웹에 직접 붙여 쓰는 ‘제3의 길’을 점유한다.</p>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Benchmarking · 빈틈 공략</div></div>
+</section>
+
+<!-- ===== 5. TECH ===== -->
+<section data-transition="slide">
+  <div class="wrap">
+    <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">04 / TECH SOLUTION</span><span class="sec-rule"></span></div>
+    <h1 class="fragment" style="font-size:1.35em">IP를 학습하는 <span class="grad">AI 파이프라인 3종</span></h1>
+    <div class="flow fragment" style="margin-top:1.2em">
+      <div class="step">
+        <div class="card glow"><div class="ic"><i class="fa-solid fa-book-open"></i></div>
+          <span class="tag">01 · LEARN</span><h4>Worldview RAG Core</h4>
+          <p>대본·설정집·미방영분을 RAG로 학습해 세계관과 톤앤매너를 완벽히 재현하는 생성 코어.</p></div>
+      </div>
+      <div class="arr"><i class="fa-solid fa-angles-right"></i></div>
+      <div class="step">
+        <div class="card cyan"><div class="ic"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <span class="tag" style="color:var(--cyan)">02 · EXPAND</span><h4>자동 콘텐츠 파이프라인</h4>
+          <p>공백기·종영 후 ‘캐릭터 비하인드 일기’ 숏폼·뉴스레터를 생성형 이미지와 결합해 자동 배포.</p></div>
+      </div>
+      <div class="arr"><i class="fa-solid fa-angles-right"></i></div>
+      <div class="step">
+        <div class="card gold"><div class="ic"><i class="fa-solid fa-chart-line"></i></div>
+          <span class="tag" style="color:var(--gold)">03 · MEASURE</span><h4>팬덤 인텔리전스</h4>
+          <p>대화 데이터를 실시간 분석 — 인게이지먼트 지수·이탈 예측·감성 분석을 정량 리포트로.</p></div>
+      </div>
+    </div>
+    <p class="faint fragment" style="font-size:.36em;margin-top:1em;text-align:center">학습한 세계관이 콘텐츠가 되고, 콘텐츠가 만든 대화가 다시 데이터가 되어 엔진을 강화한다 — <span class="grad">선순환 루프.</span></p>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Tech · 3 Pipelines</div></div>
+</section>
+
+<!-- ===== 6. BIZ MODEL ===== -->
+<section data-transition="slide">
+  <div class="wrap">
+    <div class="row fragment" style="align-items:center;margin-bottom:.5em"><span class="sec-no">05 / BUSINESS MODEL</span><span class="sec-rule"></span></div>
+    <h1 class="fragment" style="font-size:1.35em">구독으로 들어와, <span class="grad-gold">데이터로 남긴다.</span></h1>
+    <div class="tiles" style="margin-top:1.2em">
+      <div class="tile fragment">
+        <div class="ico"><i class="fa-solid fa-repeat"></i></div>
+        <div class="k">STREAM 01</div><div class="v grad">SaaS 구독 · API</div>
+        <div class="d">방송사·OTT에 엔진을 연동하고 API 사용량(트래픽)에 비례해 과금하는 기본 매출.</div>
+      </div>
+      <div class="tile fragment" style="border-color:rgba(255,212,121,.35)">
+        <div class="ico" style="background:linear-gradient(135deg,var(--gold),var(--gold-deep))"><i class="fa-solid fa-bullhorn"></i></div>
+        <div class="k" style="color:var(--gold)">STREAM 02</div><div class="v grad-gold">팬덤 데이터 판매</div>
+        <div class="d">“이 팬덤엔 야식 PPL이 효과적” — 분석 인사이트로 타겟 협찬 영업·차기 시즌 편성을 지원.</div>
+      </div>
+      <div class="tile fragment">
+        <div class="ico" style="background:linear-gradient(135deg,var(--cyan),var(--violet))"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="k">STREAM 03</div><div class="v" style="color:var(--cyan)">플랫폼 선구축</div>
+        <div class="d">공개 대본으로 PoC 증명 → 대시보드 무료 제공 → 효용 체감 후 유료 구독 자발적 전환.</div>
+      </div>
+    </div>
+    <p class="faint fragment" style="font-size:.36em;margin-top:1em"><strong>Platform-First.</strong> 진입장벽을 낮춰 먼저 생태계를 깔고, 데이터로 잠가 방송사가 떠날 수 없는 구조를 만든다.</p>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>Biz · 3 Revenue Streams</div></div>
+</section>
+
+<!-- ===== 7. CLOSING ===== -->
+<section data-transition="fade">
+  <div class="wrap">
+    <div class="eyebrow fragment"><span class="dot"></span>THANK YOU</div>
+    <h1 class="fragment" style="font-size:2.2em">끝난 방송은 없다.<br><span class="shine">잠든 IP가 있을 뿐.</span></h1>
+    <p class="cover-sub fragment">IPVERSE는 방송사의 IP를 깨워 팬덤을 자산으로 바꿉니다.<br>능동형 AI 캐릭터로, 종영 이후에도 계속되는 이야기.</p>
+    <div class="fragment" style="margin-top:1.8em"><span class="cta">함께 IP를 깨울 준비가 되셨나요 <i class="fa-solid fa-arrow-right-long"></i></span></div>
+  </div>
+  <div class="foot"><div class="b"><span class="logo-mini">IP<span class="d">VERSE</span></span></div><div>방송 IP × 생성형 AI</div></div>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  width:1280, height:720, margin:0.04,
+  hash:true, slideNumber:'c/t', transition:'slide', transitionSpeed:'default',
+  backgroundTransition:'fade', controls:true, progress:true, center:false,
+  keyboard:true, overview:true, fragments:false,
+});
+</script>
+</body>
+</html>
